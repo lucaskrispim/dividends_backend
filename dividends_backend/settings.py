@@ -155,6 +155,7 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 
+BROKER_POOL_LIMIT = 1
 CELERY_BROKER_URL = 'redis://:pf8b6e85355b34d88613b4c17db510e04abe79e5a03d25b22c61e43ae576ae3c4@ec2-107-21-207-198.compute-1.amazonaws.com:15470'  
 CELERY_RESULT_BACKEND = 'redis://:pf8b6e85355b34d88613b4c17db510e04abe79e5a03d25b22c61e43ae576ae3c4@ec2-107-21-207-198.compute-1.amazonaws.com:15470'  
 CELERY_ACCEPT_CONTENT = ['application/json']  
