@@ -91,13 +91,12 @@ WSGI_APPLICATION = 'dividends_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dividends_backend',
-        'USER': 'gngtkgby',
-        'PASSWORD': 'I3y1Xdk8K_mLsyN5dGQAsq4PR89XYzAa',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'URL':'postgres://gngtkgby:I3y1Xdk8K_mLsyN5dGQAsq4PR89XYzAa@jelani.db.elephantsql.com/gngtkgby'
+        'USER': 'mzfxcfmqklcwda',
+        'PASSWORD': '3c3996b7a7c3df9b70956ecd5028bec833274f65e5d67f8b9e3707284e0069b6',
+        'HOST': 'ec2-44-205-41-76.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
