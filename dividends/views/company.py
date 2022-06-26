@@ -21,30 +21,24 @@ class CompanyLastDy(APIView):
     # 1. List all
     def get(self, request, format=None):
         
-        print("0")
-        if request.query_params['size'] == None or request.query_params['page'] == None:
+        companies = None     
+
+        try:
+            print("0")
+            companies = Company.objects.order_by('dy').reverse()
+            print("1")
+            p = Paginator(companies, request.query_params['size'])
+            print("2")
+            page_obj = p.get_page(request.query_params['page'])
+        except Exception as e:
             return Response(
             {
                 "message": "Erro na obtenção de dados das empresas",
             },
             status=status.HTTP_400_BAD_REQUEST)
-        print("1")
-        companies = Company.objects.order_by('dy').reverse()
-        print(companies)
-        p = Paginator(companies, request.query_params['size'])
-        print("2")
-        page_obj = p.get_page(request.query_params['page'])
-
-        companiesSerialized = CompanySerializerPandas(page_obj,many=True)
-
-        return Response({
-            "content":companiesSerialized.data, 
-            "number": int(request.query_params['page']),
-            "totalElements": len(companies),
-            "totalPages": int(len(companies)/int(request.query_params['size'])),
-            "first": not page_obj.has_previous(),
-            "last": not page_obj.has_next()
-            }, status=status.HTTP_200_OK)
+            
+        serializer = CompanySerializer(companies, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 2. Create
     def post(self, request, format=None):
