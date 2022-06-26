@@ -20,23 +20,22 @@ class CompanyLastDy(APIView):
 
     # 1. List all
     def get(self, request, format=None):
- 
+        
+        print("0")
         if request.query_params['size'] == None or request.query_params['page'] == None:
             return Response(
             {
                 "message": "Erro na obtenção de dados das empresas",
             },
             status=status.HTTP_400_BAD_REQUEST)
-
+        print("1")
         companies = Company.objects.order_by('dy').reverse()
-
+        print("2")
         p = Paginator(companies, request.query_params['size'])
 
         page_obj = p.get_page(request.query_params['page'])
 
         companiesSerialized = CompanySerializerPandas(page_obj,many=True)
-
-        print(companiesSerialized.data)
 
         return Response({
             "content":companiesSerialized.data, 
