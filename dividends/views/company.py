@@ -7,6 +7,15 @@ from ..services import storeAllCompanies,storeDividendsByPeriodAndByCompany
 from ..serializers import CompanySerializer,CompanySerializerPandas,CompanyAndDividensByPeriodSerializerPandas
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
+class CompanyTest(APIView):
+    def get(self, request, format=None):
+        return Response(
+            {
+                "msg": "Ok estamos no ar",
+            },
+            status=status.HTTP_200_OK)
+
+
 class CompanyLastDy(APIView):
 
     # 1. List all
