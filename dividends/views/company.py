@@ -30,9 +30,9 @@ class CompanyLastDy(APIView):
             status=status.HTTP_400_BAD_REQUEST)
         print("1")
         companies = Company.objects.order_by('dy').reverse()
-        print("2")
+        print(companies)
         p = Paginator(companies, request.query_params['size'])
-
+        print("2")
         page_obj = p.get_page(request.query_params['page'])
 
         companiesSerialized = CompanySerializerPandas(page_obj,many=True)
