@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'dividends_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dividends_backend',
+        'NAME': 'd607d3kdd3cdql',
         'USER': 'mzfxcfmqklcwda',
         'PASSWORD': '3c3996b7a7c3df9b70956ecd5028bec833274f65e5d67f8b9e3707284e0069b6',
         'HOST': 'ec2-44-205-41-76.compute-1.amazonaws.com',
