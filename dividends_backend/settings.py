@@ -82,32 +82,32 @@ WSGI_APPLICATION = 'dividends_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-
     'default': {
-
-        'ENGINE': 'django.db.backends.postgresql',
-
-        'NAME': 'dividends_backend',
-
-        'USER': 'mzfxcfmqklcwda',
-
-        'PASSWORD': '3c3996b7a7c3df9b70956ecd5028bec833274f65e5d67f8b9e3707284e0069b6',
-
-        'HOST': 'ec2-44-205-41-76.compute-1.amazonaws.com',
-
-        'PORT': '5432',
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-
 }
+
+# DATABASES = {
+
+#     'default': {
+
+#         'ENGINE': 'django.db.backends.postgresql',
+
+#         'NAME': 'dividends_backend',
+
+#         'USER': 'mzfxcfmqklcwda',
+
+#         'PASSWORD': '3c3996b7a7c3df9b70956ecd5028bec833274f65e5d67f8b9e3707284e0069b6',
+
+#         'HOST': 'ec2-44-205-41-76.compute-1.amazonaws.com',
+
+#         'PORT': '5432',
+
+#     }
+
+# }
 
 
 
