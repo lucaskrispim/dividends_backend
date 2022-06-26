@@ -1,1 +1,1 @@
-web: gunicorn dividends.wsgi --log-file - 
+web gunicorn dividends.wsgi --log-file
