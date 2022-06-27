@@ -12,6 +12,7 @@ import yfinance as yf
 def oi():
   print("oi")
   
+  
 @shared_task
 def storeCompanies():
   from .models import Company
