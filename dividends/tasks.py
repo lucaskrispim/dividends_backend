@@ -69,7 +69,10 @@ def storeCompaniesAndDividends():
       company = CompanyAndDividends(id=i,abbreviation=row['Papel'],
                                     dy1= data1[data1['Dividends'] != 0.0]['Dividends'].sum()/data1['Close'].iloc[-1],
                                     dy3= data3[data3['Dividends'] != 0.0]['Dividends'].sum()/data3['Close'].iloc[-1],
-                                    dy5= data5[data5['Dividends'] != 0.0]['Dividends'].sum()/data5['Close'].iloc[-1]
+                                    dy5= data5[data5['Dividends'] != 0.0]['Dividends'].sum()/data5['Close'].iloc[-1],
+                                    r1= data1[data1['Dividends'] != 0.0]['Dividends'].sum()/data1['Close'].iloc[0],
+                                    r3= data3[data3['Dividends'] != 0.0]['Dividends'].sum()/data3['Close'].iloc[0],
+                                    r5= data5[data5['Dividends'] != 0.0]['Dividends'].sum()/data5['Close'].iloc[0]
                                     )
       company.save()                              
       i=i+1
