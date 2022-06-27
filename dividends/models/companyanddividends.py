@@ -4,7 +4,7 @@ from django.db import models
 
 class CompanyAndDividends(models.Model):
   id = models.IntegerField('id')
-  abbreviation = models.CharField('abbreviation',primary_key=True,max_length=30)
+  abbreviation = models.CharField('abbreviation',primary_key=True,max_length=60)
   dy1 = models.DecimalField('dy1',max_digits=12, decimal_places=2,null=False, default=0.0)
   dy3 = models.DecimalField('dy3',max_digits=12, decimal_places=2,null=False, default=0.0)
   dy5 = models.DecimalField('dy5',max_digits=12, decimal_places=2,null=False, default=0.0)
