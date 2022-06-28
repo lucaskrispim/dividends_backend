@@ -24,11 +24,11 @@ class CompanyLastDy(APIView):
         companies = None     
 
         try:
-            print("0")
+            
             companies = Company.objects.order_by('dy').reverse()
-            print("1")
+            
             p = Paginator(companies, request.query_params['size'])
-            print("2")
+            
             page_obj = p.get_page(request.query_params['page'])
         except Exception as e:
             return Response(
@@ -37,7 +37,7 @@ class CompanyLastDy(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST)
             
-        companiesSerialized = CompanySerializer(page_obj, many=True)
+        companiesSerialized = CompanySerializerPandas(page_obj, many=True)
         return Response({
             "content":companiesSerialized.data, 
             "number": int(request.query_params['page']),
