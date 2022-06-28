@@ -37,8 +37,15 @@ class CompanyLastDy(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST)
             
-        serializer = CompanySerializer(companies, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        companiesSerialized = CompanySerializer(page_obj, many=True)
+        return Response({
+            "content":companiesSerialized.data, 
+            "number": int(request.query_params['page']),
+            "totalElements": len(companies),
+            "totalPages": int(len(companies)/int(request.query_params['size'])),
+            "first": not page_obj.has_previous(),
+            "last": not page_obj.has_next()
+        }, status=status.HTTP_200_OK)
 
     # 2. Create
     def post(self, request, format=None):
