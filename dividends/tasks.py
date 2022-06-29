@@ -60,15 +60,19 @@ def storeCompaniesAndDividends():
 
   i = 0
   for index, row in df.iterrows():
-    a,b = setor(row['Papel'])
     try:
       data1 = yf.Ticker(row['Papel']+".SA").history(period='1y')
       data3 = yf.Ticker(row['Papel']+".SA").history(period='3y')
       data5 = yf.Ticker(row['Papel']+".SA").history(period='5y')
 
-      data1.drop(data1[data1 <= 0.0].index, inplace = True)
-      data3.drop(data3[data3 <= 0.0].index, inplace = True)
-      data5.drop(data5[data5 <= 0.0].index, inplace = True)
+      data1.drop(data1[data1['Close'] <= 0.0].index, inplace = True)
+      data1.drop(data1[data1['Dividends'] <= 0.0].index, inplace = True)
+      
+      data3.drop(data3[data3['Close'] <= 0.0].index, inplace = True)
+      data3.drop(data3[data3['Dividends'] <= 0.0].index, inplace = True)
+      
+      data5.drop(data5[data5['Close'] <= 0.0].index, inplace = True)
+      data5.drop(data5[data5['Dividends'] <= 0.0].index, inplace = True)
 
 
       company = CompanyAndDividends(id=i,abbreviation=row['Papel'],
