@@ -70,6 +70,7 @@ def storeCompaniesAndDividends():
       data3.drop(data3[data3 <= 0.0].index, inplace = True)
       data5.drop(data5[data5 <= 0.0].index, inplace = True)
 
+
       company = CompanyAndDividends(id=i,abbreviation=row['Papel'],
                                     dy1= data1[data1['Dividends'] != 0.0]['Dividends'].sum()/data1['Close'].iloc[-1],
                                     dy3= data3[data3['Dividends'] != 0.0]['Dividends'].sum()/data3['Close'].iloc[-1],
