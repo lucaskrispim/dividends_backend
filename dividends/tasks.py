@@ -30,7 +30,7 @@ def storeCompanies():
       df[coluna] = df[coluna].astype(str).str.replace(',','.')
       df[coluna] = df[coluna].astype(str).str.rstrip('%').astype('float') #/100
 
-  df.drop(df[df['Div.Yield'] == 0.0].index, inplace = True)
+  #df.drop(df[df['Div.Yield'] == 0.0].index, inplace = True)
 
   df.rename(columns={'Div.Yield':'dy','Cotação':'price'}, inplace=True)
 

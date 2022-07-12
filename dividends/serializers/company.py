@@ -16,6 +16,15 @@ class CompanySerializerPandas(serializers.Serializer):
   dy = serializers.FloatField()
   price = serializers.FloatField()
 
+class CompanySerializerMagicFormula(serializers.Serializer):
+  name = serializers.CharField(max_length=30)
+  abbreviation = serializers.CharField(max_length=30)
+  sector = serializers.CharField(max_length=30)
+  posicao = serializers.IntegerField()
+  id = serializers.IntegerField()
+  ev = serializers.FloatField()
+  roic = serializers.FloatField()
+
 class CompanyAndDividensByPeriodSerializerPandas(serializers.Serializer):
   id = serializers.IntegerField()
   abbreviation = serializers.CharField(max_length=30)
