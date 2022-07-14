@@ -47,25 +47,6 @@ class CompanyLastDy(APIView):
             "last": not page_obj.has_next()
         }, status=status.HTTP_200_OK)
 
-    # 2. Create
-    def post(self, request, format=None):
-
-        try:
-            if request.query_params['action'] == "storeAll":
-                storeAllCompanies()
-            else:
-                storeDividendsByPeriodAndByCompany()
-        except Exception as e:
-            return Response(
-            {
-                "message": "Erro no armazenamento de dados das empresas",
-            },
-            status=status.HTTP_400_BAD_REQUEST)
-
-        companies = Company.objects.all()
-        serializer = CompanySerializer(companies, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
 class CompanyLastDyByPeriod(APIView):
 
     # 1. List all
@@ -84,6 +65,7 @@ class CompanyLastDyByPeriod(APIView):
     
             p = Paginator(companies, request.query_params['size'])
             page_obj = p.get_page(request.query_params['page'])
+            
         except Exception as e:
             return Response(
             {

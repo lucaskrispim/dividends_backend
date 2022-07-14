@@ -7,7 +7,7 @@ from ..services.magicformula import getCompaniesAndSectors
 from ..models import Company,CompanyAndDividends
 from ..serializers import CompanySerializerMagicFormula
 
-class CompanyMagicFormula(APIView):
+class CompaniesMagicFormula(APIView):
     # 1. List all
     def get(self, request, format=None):
         

@@ -1,2 +1,3 @@
-from .company import *
+from .companies import *
 from .magicformula import *
+from .stock import *

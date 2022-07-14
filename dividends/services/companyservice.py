@@ -3,6 +3,8 @@ import pandas as pd
 from ..utils.company import setor
 from ..models import Company,CompanyAndDividends
 import yfinance as yf
+from datetime import date
+
 
 def storeAllCompanies():
 
@@ -69,4 +71,16 @@ def storeDividendsByPeriodAndByCompany():
       i=i+1
     except Exception as e:
       print("Erro") 
+
+
+
+def getCompanyData(papel,period='1y'):
+  try:
+
+    data = yf.Ticker(papel+".SA").history(period='max')
+
+    data[data.index >= f'{date.today().year-period}-01-01']
+
+  except Exception as e:
+    print("Erro") 
 
