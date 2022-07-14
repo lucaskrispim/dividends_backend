@@ -1,6 +1,6 @@
 # todo/todo_api/urls.py : API urls.py
 from django.urls import path
-from .views import CompanyLastDy,CompanyLastDyByPeriod,CompanyLastReturnByPeriod,CompanyTest,CompaniesMagicFormula
+from .views import CompanyLastDy,CompanyLastDyByPeriod,CompanyLastReturnByPeriod,CompanyTest,CompaniesMagicFormula,CompanyMagicFormula
 
 urlpatterns = [
     path('api/test', CompanyTest.as_view()),
