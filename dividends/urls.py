@@ -1,6 +1,6 @@
 # todo/todo_api/urls.py : API urls.py
 from django.urls import path
-from .views import CompanyLastDy,CompanyLastDyByPeriod,CompanyLastReturnByPeriod,CompanyTest,CompaniesMagicFormula,CompanyMagicFormula
+from .views import *
 
 urlpatterns = [
     path('api/test', CompanyTest.as_view()),
@@ -8,5 +8,7 @@ urlpatterns = [
     path('api/companiesanddividendsbyperiod', CompanyLastDyByPeriod.as_view()),
     path('api/companiesandreturnsbyperiod', CompanyLastReturnByPeriod.as_view()),
     path('api/companiesmagicformula', CompaniesMagicFormula.as_view()),
-    path('api/companymagicformula', CompanyMagicFormula.as_view()),
+    path('api/candlestickbystock', CandlestickByStock.as_view()),
+    path('api/dividendsbystock', DividendsByStock.as_view()),
+    path('api/indicatorbystock', IndicatorByStock.as_view()),
 ]

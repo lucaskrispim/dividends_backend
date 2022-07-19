@@ -1,86 +1,49 @@
 import requests
 import pandas as pd
-from ..utils.company import setor
-from ..models import Company,CompanyAndDividends
 import yfinance as yf
 from datetime import date
 
+def getCandleStickByCompanyData(papel,period=15):
 
-def storeAllCompanies():
-
-  try:
-    agent = {"User-Agent":"Mozilla/5.0"}
-    res = requests.get('https://fundamentus.com.br/resultado.php', headers=agent)
-  except Exception as e:
-    return
-
-  df = pd.read_html(res.content)[0]
-
-  for coluna in list(df):
-    if coluna != 'Papel':
-      df[coluna] = df[coluna].astype(str).str.replace('.','')
-      df[coluna] = df[coluna].astype(str).str.replace(',','.')
-      df[coluna] = df[coluna].astype(str).str.rstrip('%').astype('float') #/100
-
-  df.drop(df[df['Div.Yield'] == 0.0].index, inplace = True)
-
-  df.rename(columns={'Div.Yield':'dy','Cotação':'price'}, inplace=True)
-
-  df['price'] = df['price']/100.0
-
-  Company.objects.all().delete()
-  i = 0
-  for index, row in df.iterrows():
-    a,b = setor(row['Papel'])
-    company = Company(id=i,name=a,abbreviation=row['Papel'],sector=b,dy=row['dy'],price=row['price'])
-    i=i+1
-    #print(f"{i} {row['Papel']} {row['dy']} {row['price']}")
-    company.save()
-
-
-def storeDividendsByPeriodAndByCompany():
+  data = None
 
   try:
-    agent = {"User-Agent":"Mozilla/5.0"}
-    res = requests.get('https://fundamentus.com.br/resultado.php', headers=agent)
+
+    data = yf.Ticker(papel+".SA").history(period=f"{period}"+"d")
+    
+    data = data[(data.T != 0).any()]
+
+    data['data'] = data.index
+
   except Exception as e:
-    return
+    print(f"Erro {papel}") 
 
-  df = pd.read_html(res.content)[0]  
+  candleList = []
 
-  df.drop(df[df['Div.Yield'] == 0.0].index, inplace = True)
+  for item in data.to_dict('records'):
+    if item['Open'] > 0.0 and item['High'] > 0.0 and item['Low'] > 0.0 and item['Close'] > 0.0:
+      candleList.append({
+        'x': item.pop('data', None),
+        'y': [round(x,2) for x in [item['Open'],item['High'],item['Low'],item['Close']]]
+      })
 
-  CompanyAndDividends.objects.all().delete()
-  i = 0
-  for index, row in df.iterrows():
-    a,b = setor(row['Papel'])
-    try:
-      data1 = yf.Ticker(row['Papel']+".SA").history(period='1y')
-      data3 = yf.Ticker(row['Papel']+".SA").history(period='3y')
-      data5 = yf.Ticker(row['Papel']+".SA").history(period='5y')
-
-      company = CompanyAndDividends(id=i,abbreviation=row['Papel'],
-                                    dy1= data1[data1['Dividends'] != 0.0]['Dividends'].sum()/data1['Close'].iloc[-1],
-                                    dy3= data3[data3['Dividends'] != 0.0]['Dividends'].sum()/data3['Close'].iloc[-1],
-                                    dy5= data5[data5['Dividends'] != 0.0]['Dividends'].sum()/data5['Close'].iloc[-1],
-                                    r1= data1[data1['Dividends'] != 0.0]['Dividends'].sum()/data1['Close'].iloc[0],
-                                    r3= data3[data3['Dividends'] != 0.0]['Dividends'].sum()/data3['Close'].iloc[0],
-                                    r5= data5[data5['Dividends'] != 0.0]['Dividends'].sum()/data5['Close'].iloc[0]
-                                    )
-      company.save()
-      i=i+1
-    except Exception as e:
-      print("Erro") 
+  return candleList
 
 
+def getDividendsByCompanyData(papel,period=1):
 
-def getCompanyData(papel,period='1y'):
+  data = None
+
   try:
 
     data = yf.Ticker(papel+".SA").history(period='max')
+    
+    data['data'] = data.index
 
-    data[data.index >= f'{date.today().year-period}-01-01']
+    dataDividesnds = data[data.index >= f'{date.today().year-period}-{date.today().month}-{date.today().day}']
+    dataDividesnds = dataDividesnds[dataDividesnds['Dividends'] > 0.0]
 
   except Exception as e:
-    print("Erro") 
+    print(f"Erro {e} {papel}") 
 
+  return dataDividesnds.to_dict('records')

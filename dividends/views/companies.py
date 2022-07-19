@@ -3,7 +3,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from ..models import Company,CompanyAndDividends
-from ..services import storeAllCompanies,storeDividendsByPeriodAndByCompany
 from ..serializers import CompanySerializer,CompanySerializerPandas,CompanyAndDividensByPeriodSerializerPandas
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 

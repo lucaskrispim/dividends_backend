@@ -34,3 +34,17 @@ class CompanyAndDividensByPeriodSerializerPandas(serializers.Serializer):
   r1 = serializers.FloatField()
   r3 = serializers.FloatField()
   r5 = serializers.FloatField()
+
+
+class StockSerializerPandas(serializers.Serializer):
+  Dividends = serializers.FloatField()
+  data = serializers.DateTimeField()
+
+class StockCandleSerializerPandas(serializers.Serializer):
+  x = serializers.DateTimeField()
+  y = serializers.ListField(child=serializers.FloatField())
+
+
+class RsiSerializerPandas(serializers.Serializer):
+  x = serializers.DateTimeField()
+  rsi = serializers.FloatField()
