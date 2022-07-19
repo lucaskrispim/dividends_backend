@@ -4,7 +4,7 @@ import yfinance as yf
 from ..utils import calc_rsi
 from datetime import date
 
-def getRsiByCompanyData(papel,window=14,period=15):
+def getRsiByCompanyData(papel,window=14,period=16):
 
   data = None
 
@@ -18,7 +18,7 @@ def getRsiByCompanyData(papel,window=14,period=15):
 
     data['rsi'] = calc_rsi(data = data.copy(), column='Close', window=window)
 
-    data = data[data.index >= f'{date.today().year}-{date.today().month}-{date.today().day-period}']
+    data = data.tail(15)
 
   except Exception as e:
     print(f"Erro {e} {papel}") 
